@@ -15,7 +15,7 @@ provider:
 
 custom:
   pythonRequirements:
-    dockerizePip: true
+    dockerizePip: false
     slim: true
 
 functions:
