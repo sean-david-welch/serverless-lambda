@@ -22,3 +22,4 @@ var/
 
 # node
 node_modules
+.venv
