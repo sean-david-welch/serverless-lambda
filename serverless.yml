@@ -4,14 +4,19 @@ frameworkVersion: '3'
 
 provider:
   name: aws
-  runtime: python3.7
+  runtime: python3.10
   region: eu-west-1
   environment:
-    PGHOST: ${env:PGHOST}
-    PGDATABASE: ${env:PGDATABASE}
-    PGUSER: ${env:PGUSER}
-    PGPASSWORD: ${env:PGPASSWORD}
-    PGPORT: ${env:PGPORT}
+    PGHOST: ${.env:PGHOST}
+    PGDATABASE: ${.env:PGDATABASE}
+    PGUSER: ${.env:PGUSER}
+    PGPASSWORD: ${.env:PGPASSWORD}
+    PGPORT: ${.env:PGPORT}
+
+custom:
+  pythonRequirements:
+    dockerizePip: true
+    slim: true
 
 functions:
   hello:
@@ -23,4 +28,5 @@ functions:
 
 plugins:
   - serverless-offline
+  - serverless-dotenv-plugin
   - serverless-python-requirements
