@@ -1,14 +1,15 @@
 import os
 import json
-import boto3
 import psycopg2
+
 from dotenv import load_dotenv
 from typing import Any, Dict
+from queries import fetch_products
 
 load_dotenv()
 
 
-def hello(event, context):
+def hello(event: Dict[Any, Any], context: Any) -> Dict[str, Any]:
     cursor = None
     connection = None
 
@@ -22,8 +23,8 @@ def hello(event, context):
         )
 
         cursor = connection.cursor()
-        cursor.execute('SELECT * FROM "Product"')
-        result = cursor.fetchall()
+
+        result = fetch_products(cursor)
 
         body = {"message": "Query executed", "data": result, "input": event}
         status_code = 200
