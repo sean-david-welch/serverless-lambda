@@ -21,12 +21,18 @@ custom:
     slim: false
 
 functions:
-  read_products:
-    handler: handler.read_products
+  get_products:
+    handler: handler.get_products
     events:
       - http:
           path: /products
           method: get
+  post_product:
+    handler: handler.post_product
+    events:
+      - http:
+          path: /product
+          method: post
 
 plugins:
   - serverless-offline
