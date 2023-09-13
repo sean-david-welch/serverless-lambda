@@ -4,7 +4,7 @@ import psycopg2
 
 from typing import Any, Dict
 from dotenv import load_dotenv
-from queries import create_product, fetch_products, update_product, remove_product
+from app.queries import create_product, fetch_products, update_product, remove_product
 
 load_dotenv()
 
