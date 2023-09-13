@@ -29,7 +29,7 @@ custom:
 
 functions:
   get_products:
-    handler: app.handler.get_products
+    handler: handler.get_products
     events:
       - http:
           path: /products
@@ -45,7 +45,7 @@ functions:
             allowCredentials: true
 
   post_product:
-    handler: app.handler.post_product
+    handler: handler.post_product
     events:
       - http:
           path: /product
@@ -60,12 +60,12 @@ functions:
               - X-Api-Key
             allowCredentials: true
 
-  update_product:
-    handler: app.handler.update_product
+  put_product:
+    handler: handler.put_product
     events:
       - http:
           path: /product/{id}
-          method: update
+          method: put
           authorizer: null
           cors:
             origins:
@@ -77,7 +77,7 @@ functions:
             allowCredentials: true
 
   delete_product:
-    handler: app.handler.delete_product
+    handler: handler.delete_product
     events:
       - http:
           path: /product/{id}

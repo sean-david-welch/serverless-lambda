@@ -44,12 +44,12 @@ def update_product(cursor, id, name, description, image, price):
     cursor.connection.commit()
 
 
-def delete_product(cursor, id):
+def remove_product(cursor, id):
     query = sql.SQL(
         """
         DELETE FROM "product" WHERE id = %s
         """
     )
 
-    cursor.execute(query, (str(id)))
+    cursor.execute(query, (str(id),))
     cursor.connection.commit()

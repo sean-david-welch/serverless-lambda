@@ -4,7 +4,7 @@ import psycopg2
 
 from typing import Any, Dict
 from dotenv import load_dotenv
-from queries import fetch_products, create_product, update_product, delete_product
+from queries import create_product, fetch_products, update_product, remove_product
 
 load_dotenv()
 
@@ -67,7 +67,7 @@ def post_product(event: Dict[Any, Any], context: Any) -> Dict[str, Any]:
         return {"statusCode": 500, "body": json.dumps({"message": str(error)})}
 
 
-def update_product(event: Dict[Any, Any], context: Any) -> Dict[str, Any]:
+def put_product(event: Dict[Any, Any], context: Any) -> Dict[str, Any]:
     try:
         with psycopg2.connect(**connection_params) as connection:
             with connection.cursor() as cursor:
@@ -109,7 +109,7 @@ def delete_product(event: Dict[Any, Any], context: Any) -> Dict[str, Any]:
             with connection.cursor() as cursor:
                 id = event["pathParameters"]["id"]
 
-                delete_product(cursor, id)
+                remove_product(cursor, id)
 
                 return {
                     "statusCode": 204,
