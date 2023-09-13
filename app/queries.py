@@ -41,6 +41,7 @@ def update_product(cursor, id, name, description, image, price):
     )
 
     cursor.execute(query, (name, description, image, price, str(id)))
+    cursor.connection.commit()
 
 
 def delete_product(cursor, id):
@@ -51,4 +52,4 @@ def delete_product(cursor, id):
     )
 
     cursor.execute(query, (str(id)))
-    cursor.connnection.commit()
+    cursor.connection.commit()
