@@ -2,7 +2,7 @@ from uuid import uuid4
 
 
 def fetch_products(cursor):
-    cursor.execute('SELECT * FROM "Product"')
+    cursor.execute('SELECT * FROM "product"')
     return cursor.fetchall()
 
 
@@ -14,3 +14,5 @@ def create_product(cursor, name, description, image, price):
             """
     cursor.execute(query, (id, name, description, image, price))
     cursor.connection.commit()
+
+    return id

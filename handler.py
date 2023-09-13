@@ -29,9 +29,7 @@ def get_products(event: Dict[Any, Any], context: Any) -> Dict[str, Any]:
 
         return {
             "statusCode": 200,
-            "body": json.dumps(
-                {"message": "Query executed", "data": result, "input": event}
-            ),
+            "body": json.dumps({"message": "Query executed", "data": result}),
         }
 
     except Exception as error:
@@ -60,9 +58,23 @@ def post_product(event: Dict[Any, Any], context: Any) -> Dict[str, Any]:
         image = body.get("image")
         price = body.get("price")
 
-        create_product(cursor, name, description, image, price)
+        product_id = create_product(cursor, name, description, image, price)
 
-        return {"statusCode": 201, "body": json.dumps({"message": "Product Created"})}
+        return {
+            "statusCode": 201,
+            "body": json.dumps(
+                {
+                    "message": "Product Created",
+                    "product": {
+                        "id": product_id,
+                        "name": name,
+                        "description": description,
+                        "image": image,
+                        "price": price,
+                    },
+                }
+            ),
+        }
 
     except Exception as error:
         context.serverless_sdk.capture_exception(error)
