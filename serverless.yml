@@ -27,12 +27,30 @@ functions:
       - http:
           path: /products
           method: get
+          authorizer: null
+          cors:
+            origins:
+              - '*'
+            headers:
+              - Content-Type
+              - Authorization
+              - X-Api-Key
+            allowCredentials: true
   post_product:
     handler: handler.post_product
     events:
       - http:
           path: /product
           method: post
+          authorizer: null
+          cors:
+            origins:
+              - '*'
+            headers:
+              - Content-Type
+              - Authorization
+              - X-Api-Key
+            allowCredentials: true
 
 plugins:
   - serverless-offline

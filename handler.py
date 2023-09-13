@@ -2,8 +2,8 @@ import os
 import json
 import psycopg2
 
-from dotenv import load_dotenv
 from typing import Any, Dict
+from dotenv import load_dotenv
 from queries import fetch_products, create_product
 
 load_dotenv()
@@ -66,7 +66,7 @@ def post_product(event: Dict[Any, Any], context: Any) -> Dict[str, Any]:
                 {
                     "message": "Product Created",
                     "product": {
-                        "id": product_id,
+                        "id": str(product_id),
                         "name": name,
                         "description": description,
                         "image": image,

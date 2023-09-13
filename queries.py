@@ -12,7 +12,7 @@ def create_product(cursor, name, description, image, price):
             INSERT INTO "product" (id, name, description, image, price)
             VALUES (%s, %s, %s, %s, %s)
             """
-    cursor.execute(query, (id, name, description, image, price))
+    cursor.execute(query, (str(id), name, description, image, price))
     cursor.connection.commit()
 
     return id
