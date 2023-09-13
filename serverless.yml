@@ -1,3 +1,5 @@
+org: seanwelch
+app: lambda-test
 service: amos-lambda
 
 frameworkVersion: '3'
@@ -15,8 +17,8 @@ provider:
 
 custom:
   pythonRequirements:
-    dockerizePip: false
-    slim: true
+    dockerizePip: true
+    slim: false
 
 functions:
   hello:

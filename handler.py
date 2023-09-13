@@ -32,6 +32,7 @@ def hello(event: Dict[Any, Any], context: Any) -> Dict[str, Any]:
     except Exception as error:
         body = {"message": str(error)}
         status_code = 500
+        context.serverless_skd.capture_exception(error)
 
     finally:
         if cursor:
