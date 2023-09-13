@@ -21,11 +21,11 @@ custom:
     slim: false
 
 functions:
-  hello:
-    handler: handler.hello
+  read_products:
+    handler: handler.read_products
     events:
       - http:
-          path: /hello
+          path: /products
           method: get
 
 plugins:

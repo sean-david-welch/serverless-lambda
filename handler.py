@@ -8,37 +8,38 @@ from queries import fetch_products
 
 load_dotenv()
 
+connection_params = {
+    "host": os.environ["PGHOST"],
+    "dbname": os.environ["PGDATABASE"],
+    "user": os.environ["PGUSER"],
+    "password": os.environ["PGPASSWORD"],
+    "port": os.environ["PGPORT"],
+}
 
-def hello(event: Dict[Any, Any], context: Any) -> Dict[str, Any]:
+
+def read_products(event: Dict[Any, Any], context: Any) -> Dict[str, Any]:
     cursor = None
     connection = None
 
     try:
-        connection = psycopg2.connect(
-            host=os.environ["PGHOST"],
-            dbname=os.environ["PGDATABASE"],
-            user=os.environ["PGUSER"],
-            password=os.environ["PGPASSWORD"],
-            port=os.environ["PGPORT"],
-        )
-
+        connection = psycopg2.connect(**connection_params)
         cursor = connection.cursor()
 
         result = fetch_products(cursor)
 
-        body = {"message": "Query executed", "data": result, "input": event}
-        status_code = 200
+        return {
+            "statusCode": 200,
+            "body": json.dumps(
+                {"message": "Query executed", "data": result, "input": event}
+            ),
+        }
 
     except Exception as error:
-        body = {"message": str(error)}
-        status_code = 500
-        context.serverless_skd.capture_exception(error)
+        context.serverless_sdk.capture_exception(error)
+        return {"statusCode": 500, "body": json.dumps({"message": str(error)})}
 
     finally:
         if cursor:
             cursor.close()
         if connection:
             connection.close()
-
-    response = {"statusCode": status_code, "body": json.dumps(body)}
-    return response
