@@ -22,7 +22,7 @@ custom:
 
 functions:
   get_products:
-    handler: handler.get_products
+    handler: app.handler.get_products
     events:
       - http:
           path: /products
@@ -37,7 +37,7 @@ functions:
               - X-Api-Key
             allowCredentials: true
   post_product:
-    handler: handler.post_product
+    handler: app.handler.post_product
     events:
       - http:
           path: /product
