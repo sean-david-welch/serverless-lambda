@@ -34,23 +34,6 @@ custom:
     dockerizePip: true
     slim: false
 
-functions:
-  create_table:
-    handler: app/utils.post_table
-    events:
-      - http:
-          path: /tables
-          method: get
-          authorizer: null
-          cors:
-            origins:
-              - '*'
-            headers:
-              - Content-Type
-              - Authorization
-              - X-Api-Key
-            allowCredentials: true
-
   get_products:
     handler: app/products.get_products
     events:
