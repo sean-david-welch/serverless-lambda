@@ -4,13 +4,11 @@ import psycopg2
 
 from typing import Any, Dict
 from dotenv import load_dotenv
-from psycopg2.extras import DictCursor
 from app.queries import (
     create_product,
     fetch_products,
     update_product,
     remove_product,
-    create_table,
 )
 
 load_dotenv()
@@ -22,27 +20,6 @@ connection_params = {
     "password": os.environ["PGPASSWORD"],
     "port": os.environ["PGPORT"],
 }
-
-
-def post_table(event: Dict[Any, Any], context: Any) -> Dict[str, Any]:
-    try:
-        with psycopg2.connect(**connection_params) as connection:
-            with connection.cursor() as cursor:
-                body = json.loads(event.get("body", "{}"))
-                columns = body.get("columns", {})
-                table_name = body.get("table_name", "")
-
-                if columns and table_name:
-                    create_table(cursor, table_name, columns)
-
-        return {
-            "statusCode": 201,
-            "body": json.dumps({"message": "Table created", "Table": columns}),
-        }
-
-    except Exception as error:
-        context.serverless_sdk.capture_exception(error)
-        return {"statusCode": 500, "body": json.dumps({"message": str(error)})}
 
 
 def get_products(event: Dict[Any, Any], context: Any) -> Dict[str, Any]:
