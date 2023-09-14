@@ -20,6 +20,7 @@ package:
     - .env
     - .venv/**
     - __pycache__
+    - shared/**
     - node_modules/**
     - .git/**
     - .gitignore
@@ -35,7 +36,7 @@ custom:
 
 functions:
   get_products:
-    handler: app/handler.get_products
+    handler: app/products.get_products
     events:
       - http:
           path: /products
@@ -51,7 +52,7 @@ functions:
             allowCredentials: true
 
   post_product:
-    handler: app/handler.post_product
+    handler: app/products.post_product
     events:
       - http:
           path: /product
@@ -67,7 +68,7 @@ functions:
             allowCredentials: true
 
   put_product:
-    handler: app/handler.put_product
+    handler: app/products.put_product
     events:
       - http:
           path: /product/{id}
@@ -83,7 +84,7 @@ functions:
             allowCredentials: true
 
   delete_product:
-    handler: app/handler.delete_product
+    handler: app/products.delete_product
     events:
       - http:
           path: /product/{id}

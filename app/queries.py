@@ -2,6 +2,21 @@ from uuid import uuid4
 from psycopg2 import sql
 
 
+def create_table(cursor, table_name: str, columns: dict):
+    column_definition = ", ".join(
+        f"{column_name} {column_type}" for column_name, column_type in columns.items()
+    )
+
+    query = sql.SQL(
+        f"""
+        CREATE TABLE {table_name} ({column_definition});
+        """
+    )
+
+    cursor.execute(query)
+    cursor.connection.commit()
+
+
 # Product CRUD
 def create_product(cursor, name, description, image, price):
     id = uuid4()
